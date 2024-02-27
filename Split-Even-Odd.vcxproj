@@ -127,7 +127,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="linkedList.cpp" />
     <ClCompile Include="Split-Even-Odd.cpp" />
+    <ClCompile Include="unorderLinkedList.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="linkedList.h" />
+    <ClInclude Include="unorderLinkedList.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

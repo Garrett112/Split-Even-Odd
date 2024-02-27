@@ -1,20 +1,102 @@
-// Split-Even-Odd.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include "unorderLinkedList.h"
+
+using namespace std;
+
+class intLinkedList : public unorderedLinkedList<int> {
+public:
+    void splitEvensOddsList(intLinkedList& evensList, intLinkedList& oddsList) {
+        if (this->first == nullptr) {
+            cout << "List is empty" << endl;
+            return;
+        }
+
+        nodeType<int>* current = this->first;
+        nodeType<int>* evensStart = nullptr;
+        nodeType<int>* oddsStart = nullptr;
+        nodeType<int>* evensEnd = nullptr;
+        nodeType<int>* oddsEnd = nullptr;
+        evensList.first = evensStart;
+        oddsList.first = oddsStart;
+
+
+        while (current != nullptr) {
+            if (current->info % 2 == 0) {
+                if (evensStart == nullptr) {
+                    evensStart = current;
+                    evensEnd = current;
+                }
+                else {
+                    evensEnd->link = current;
+                    evensEnd = evensEnd->link;
+                }
+            }
+            else {
+                if (oddsStart == nullptr) {
+                    oddsStart = current;
+                    oddsEnd = current;
+                }
+                else {
+                    oddsEnd->link = current;
+                    oddsEnd = oddsEnd->link;
+                }
+            }
+            current = current->link;
+        }
+        if (oddsEnd != nullptr) {
+            oddsEnd->link = nullptr;
+        }
+        if (evensStart != nullptr) {
+            evensEnd->link = nullptr;
+        }
+        while (evensStart != nullptr) {
+            cout << evensStart->info << endl;
+            evensStart = evensStart->link;
+        }
+        cout << endl << endl;
+        while (oddsStart != nullptr) {
+            cout << oddsStart->info << endl;
+            oddsStart = oddsStart->link;
+        }
+
+    }
+    void printList() {
+        nodeType<int>* current = this->first;
+        while (current != nullptr) {
+            cout << current->info << endl;
+            current = current->link;
+        }
+    }
+};
 
 int main()
 {
-    std::cout << "Hello World!\n";
+    
+    intLinkedList unorderedList;
+    unorderedList.insertFirst(10);
+    unorderedList.insertFirst(24);
+    unorderedList.insertFirst(17);
+    unorderedList.insertFirst(11);
+    unorderedList.insertFirst(90);
+    unorderedList.insertFirst(36);
+    unorderedList.insertFirst(88);
+    unorderedList.insertFirst(120);
+    unorderedList.insertFirst(7);
+    unorderedList.insertFirst(53);
+    unorderedList.insertFirst(66);
+    unorderedList.insertFirst(90);
+    unorderedList.insertFirst(15);
+    unorderedList.insertFirst(10);
+    unorderedList.insertFirst(21);
+    unorderedList.insertFirst(62);
+    unorderedList.insertFirst(34);
+    intLinkedList evensList;
+    intLinkedList oddsList;
+    unorderedList.splitEvensOddsList(evensList, oddsList);
+    evensList.printList();
+    oddsList.printList();
+    
+
+
+
 }
-
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
-
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
